@@ -1,3 +1,4 @@
+{{ $section := (.Site.GetPage .Section) }}
 <!DOCTYPE html>
 <html lang="{{ .Page.Language | default "en" }}" class="js csstransforms3d">
   <head>
@@ -6,7 +7,13 @@
     {{ .Hugo.Generator }}
     {{ partial "meta.html" . }}
     {{ partial "favicon.html" . }}
-    <title>{{ plainify .Params.Pre}}{{ .Title }} &middot; {{ .Site.Title }}</title>
+    <title>
+      {{ if ne .Title $section.Title }}
+        {{ .Title }} &middot; {{ $section.Title }} &middot; {{ .Site.Title }}
+      {{ else }}
+        {{ .Title }} &middot; {{ .Site.Title }}
+      {{ end }}
+    </title>
 
     {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
     <link href="{{"css/nucleus.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
