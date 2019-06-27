@@ -9,7 +9,7 @@
     {{ partial "favicon.html" . }}
     <title>
       {{ if ne .Title $section.Title }}
-        {{safeHTML .Params.Pre}} {{ .Title }} &middot; {{ $section.Title }} &middot; {{ .Site.Title }}
+        {{ .Title }} {{ if .Params.Pre }} &middot; {{safeHTML .Params.Pre}}{{ end }} &middot; {{ $section.Title }} &middot; {{ .Site.Title }}
       {{ else }}
         {{ .Title }} &middot; {{ .Site.Title }}
       {{ end }}
@@ -97,7 +97,7 @@
         <div id="body-inner">
           {{if (not .IsHome) }}
             <h1>
-              {{safeHTML .Params.Pre}} {{.Title}}
+              {{.Title}}
             </h1>
           {{end}}
 
