@@ -8,7 +8,9 @@
     {{ partial "meta.html" . }}
     {{ partial "favicon.html" . }}
     <title>
-      {{ if ne .Title $section.Title }}
+      {{ if .IsHome }}
+        {{ .Site.Title }}
+      {{ else if ne .Title $section.Title }}
         {{ .Title }} {{ if .Params.Pre }} &middot; {{safeHTML .Params.Pre}}{{ end }} &middot; {{ $section.Title }} &middot; {{ .Site.Title }}
       {{ else }}
         {{ .Title }} &middot; {{ .Site.Title }}
@@ -95,11 +97,13 @@
           <div id="chapter">
         {{ end }}
         <div id="body-inner">
-          {{if (not .IsHome) }}
-            <h1>
-              {{.Title}}
-            </h1>
-          {{end}}
+          <h1>
+            {{ if .IsHome }}
+              {{ .Site.Title }}
+            {{ else }}
+              {{ .Title }}
+            {{ end }}
+          </h1>
 
         {{define "breadcrumb"}}
           {{$parent := .page.Parent }}
