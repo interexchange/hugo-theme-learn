@@ -947,6 +947,9 @@ td {
 .featherlight img {
     margin: 0 !important;
 }
+.featherlight .featherlight-content {
+    background: transparent;
+}
 .lifecycle #body-inner ul {
     list-style: none;
     margin: 0;
