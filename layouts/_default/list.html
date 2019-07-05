@@ -1,9 +1,5 @@
 {{ partial "header.html" . }}
 
-<div class="table-of-contents">
-  {{ .TableOfContents }}
-</div>
-
 {{ if eq .Kind "section" }}
 	{{ .Content }}
 {{end}}
