@@ -21,8 +21,13 @@
 	{{ range .Pages }}
     {{ $section := ($.Site.GetPage .Section) }}
 		<li>
-      <a href="{{.URL}}">{{ $section.Title }} {{.Title}}</a>
-
+      <a href="{{.URL}}">
+        <strong>
+          {{ $section.Title }}
+          {{ .Params.pre }}
+        </strong>
+        {{ .Title }}
+      </a>
     </li>
 	{{ end }}
 </ul>
