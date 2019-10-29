@@ -2,11 +2,12 @@
 {{- if ne $page.Type "json" -}}
 {{- if and $index (gt $index 0) -}},{{- end }}
 {
-	"uri": "{{ $page.Permalink }}",
-	"title": "{{ htmlEscape $page.Title}}",
-	"tags": [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}"{{ $tag| htmlEscape }}"{{ end }}],
-	"description": "{{ htmlEscape .Description}}",
-	"content": {{$page.Plain | jsonify}}
+  "uri": "{{ $page.Permalink }}",
+  "title": "{{ htmlEscape $page.Title}}",
+  "section": "{{ with.Site.GetPage $page.Section }}{{ if ne $page.Title .Title }}{{ .Title }}{{ end }}{{ end }} {{ if .Params.Pre }} {{safeHTML .Params.Pre}}{{ end }}",
+  "tags": [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}"{{ $tag| htmlEscape }}"{{ end }}],
+  "description": "{{ htmlEscape .Description}}",
+  "content": {{$page.Plain | jsonify}}
 }
 {{- end -}}
 {{- end -}}]

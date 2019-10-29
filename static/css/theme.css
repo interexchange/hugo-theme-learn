@@ -484,7 +484,7 @@ div.notices {
     margin: 2rem 0;
     position: relative;
 }
-div.notices p {
+div.notices > div {
     padding: 15px;
     display: block;
     font-size: 1rem;
@@ -492,7 +492,7 @@ div.notices p {
     margin-bottom: 0rem;
     color: #666;
 }
-div.notices p:first-child:before {
+div.notices > div:first-child:before {
     position: absolute;
     top: 2px;
     color: #fff;
@@ -501,38 +501,64 @@ div.notices p:first-child:before {
     content: "\f06a";
     left: 10px;
 }
-div.notices p:first-child:after {
+div.notices > div:first-child:after {
     position: absolute;
     top: 2px;
     color: #fff;
     left: 2rem;
 }
-div.notices.info p {
+div.notices > div ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.1rem;
+}
+div.notices > div blockquote {
+    margin-top: 0.5rem;
+    margin-bottom: 0.1rem;
+    margin-left: 0;
+    padding-left: 10px;
+}
+div.notices > div blockquote p {
+    margin: 0;
+}
+div.notices > div > p {
+    margin-top: 0;
+}
+div.notices > div p:empty {
+    display: none;
+}
+div.notices.info > div {
     border-top: 30px solid #F0B37E;
     background: #FFF2DB;
 }
-div.notices.info p:first-child:after {
+div.notices.info > div:first-child:after {
     content: 'Info';
 }
-div.notices.warning p {
+div.notices.warning > div {
     border-top: 30px solid rgba(217, 83, 79, 0.8);
     background: #FAE2E2;
 }
-div.notices.warning p:first-child:after {
+div.notices.warning > div:first-child:after {
     content: 'Warning';
 }
-div.notices.note p {
+div.notices.note > div {
     border-top: 30px solid #6AB0DE;
     background: #E7F2FA;
 }
-div.notices.note p:first-child:after {
+div.notices.note > div:first-child:after {
     content: 'Note';
 }
-div.notices.tip p {
+div.notices.todo > div {
+    border-top: 30px solid #6AB0DE;
+    background: #E7F2FA;
+}
+div.notices.todo > div:first-child:after {
+    content: 'ToDo';
+}
+div.notices.tip > div {
     border-top: 30px solid rgba(92, 184, 92, 0.8);
     background: #E6F9E6;
 }
-div.notices.tip p:first-child:after {
+div.notices.tip > div:first-child:after {
     content: 'Tip';
 }
 
@@ -921,6 +947,9 @@ td {
 .featherlight img {
     margin: 0 !important;
 }
+.featherlight .featherlight-content {
+    background: transparent;
+}
 .lifecycle #body-inner ul {
     list-style: none;
     margin: 0;
@@ -1129,4 +1158,19 @@ pre .copy-to-clipboard:hover {
 
 #searchResults {
     text-align: left;
+}
+
+.resp-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+
+.resp-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }

@@ -1,3 +1,4 @@
+{{ $section := (.Site.GetPage .Section) }}
 <!DOCTYPE html>
 <html lang="{{ .Page.Language | default "en" }}" class="js csstransforms3d">
   <head>
@@ -6,7 +7,15 @@
     {{ hugo.Generator }}
     {{ partial "meta.html" . }}
     {{ partial "favicon.html" . }}
-    <title>{{ .Title }} :: {{ .Site.Title }}</title>
+    <title>
+      {{ if .IsHome }}
+        {{ .Site.Title }}
+      {{ else if ne .Title $section.Title }}
+        {{ .Title }} {{ if .Params.Pre }} &middot; {{safeHTML .Params.Pre}}{{ end }} &middot; {{ $section.Title }} &middot; {{ .Site.Title }}
+      {{ else }}
+        {{ .Title }} &middot; {{ .Site.Title }}
+      {{ end }}
+    </title>
 
     {{ $assetBusting := not .Site.Params.disableAssetsBusting }}
     <link href="{{"css/nucleus.css" | relURL}}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="stylesheet">
@@ -71,7 +80,7 @@
                  {{if $showBreadcrumb}}
                     {{ template "breadcrumb" dict "page" . "value" .Title }}
                  {{ else }}
-                   {{ .Title }} 
+                   {{ .Title }}
                  {{ end }}
                   </span>
                 </div>
@@ -88,20 +97,19 @@
           <div id="chapter">
         {{ end }}
         <div id="body-inner">
-          {{if and (not .IsHome) (not .Params.chapter) }}
-            <h1>
-              {{ if eq .Kind "taxonomy" }}
-                {{.Kind}} ::
-              {{ end }}
-              {{.Title}}
-            </h1>
-          {{end}}
+          <h1>
+            {{ if .IsHome }}
+              {{ .Site.Title }}
+            {{ else }}
+              {{ .Title }}
+            {{ end }}
+          </h1>
 
         {{define "breadcrumb"}}
           {{$parent := .page.Parent }}
           {{ if $parent }}
-            {{ $value := (printf "<a href='%s'>%s</a> > %s" $parent.RelPermalink $parent.Title .value) }}
-            {{ template "breadcrumb" dict "page" $parent "value" $value }} 
+            {{ $value := (printf "<a href='%s'>%s</a> > %s" $parent.URL $parent.Title .value) }}
+            {{ template "breadcrumb" dict "page" $parent "value" $value }}
           {{else}}
             {{.value|safeHTML}}
           {{end}}
